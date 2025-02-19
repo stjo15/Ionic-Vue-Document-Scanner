@@ -31,7 +31,7 @@
         <DocumentScanner @on-scanned="onScanned" @on-stopped="onStopped"></DocumentScanner>
       </div>
       <div class="scanner fullscreen" v-if="mode==='qr-scanning'">
-        <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
+        <StreamBarcodeReader @decode="onDecode"></StreamBarcodeReader> <!-- @loaded="onLoaded" -->
       </div>
       <ion-loading :is-open="!initialized" message="Loading..." :backdropDismiss="true" :duration="3000" />
     </ion-content>
