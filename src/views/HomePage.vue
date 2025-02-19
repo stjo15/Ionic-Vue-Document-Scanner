@@ -61,7 +61,7 @@ const viewer = ref<undefined|HTMLDivElement>();
 const mode = ref<"scanning"|"cropping"|"qr-scanning"|"normal">("normal");
 let ionBackground = "";
 let photoPath:string|undefined;
-let connectedPatient = ref<string|"">("");
+let connectedPatient = ref<string|"">("No patient connected");
 
 onMounted(async () => {
   console.log("mounted");
@@ -111,19 +111,33 @@ const saveImages = async () => {
     }
     doc.addImage(image, 0, 0, image.naturalWidth, image.naturalHeight);
   }
-  if (Capacitor.isNativePlatform()) {
+  if (true) { /* Capacitor.isNativePlatform() */
     const data = doc.output("datauristring");    
     const fileName = "scanned.pdf";
-    const writingResult = await Filesystem.writeFile({
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        name: fileName,
+        data: data
+      })
+    };
+
+    const response = await fetch('https://scanner.requestcatcher.com/test', requestOptions);
+    console.log(response.json());
+
+    /* const writingResult = await Filesystem.writeFile({
       path: fileName,
       data: data,
       directory: Directory.Cache
     });
+
     Share.share({
       title: fileName,
       text: fileName,
       url: writingResult.uri,
-    });
+    }); */
   }else{
     doc.save("scanned.pdf");
   }
