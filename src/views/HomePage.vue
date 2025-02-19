@@ -122,13 +122,19 @@ const saveImages = async () => {
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "mode": 'no-cors',
+        'Access-Control-Allow-Origin':'*'
+      },
       body: JSON.stringify({ 
         name: fileName,
-        data: JSON.parse(data),
+        data: data,
         patientUuid: connectedPatient.value
       })
     };
+
+    console.log(requestOptions);
 
     const response = await fetch('https://webcurscanner.requestcatcher.com/test', requestOptions);
     
