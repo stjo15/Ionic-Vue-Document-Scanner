@@ -2,14 +2,14 @@
   <ion-page>
     <ion-header :translucent="true" :class="mode!='normal'?'hidden':''">
       <ion-toolbar>
-        <ion-title>Docs Scan</ion-title>
+        <ion-title><ion-icon :icon="scanOutline"></ion-icon></ion-title>
         <ion-buttons slot="primary">
-          <p>Connected Patient: {{connectedPatient.valueOf()}}</p>
+          <p>{{connectedPatient.valueOf()}}</p>
           <ion-button @click="clearImages">
             <ion-icon :icon="trash"></ion-icon>
           </ion-button>
           <ion-button @click="saveImages">
-            <ion-icon :icon="save"></ion-icon>
+            <ion-icon :icon="send"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -22,8 +22,8 @@
         <div class="statusMessage"><p>{{statusMessage.valueOf()}}</p></div>
       </div>
       <div :class="'footer'+(mode!='normal'?' hidden':'')">
-        <button class="shutter-button" @click="qrReadPatient">Read Patient</button>
-        <button class="shutter-button" @click="startScanning">Scan Document</button>
+        <button class="shutter-button round" @click="qrReadPatient"><ion-icon :icon="personAddOutline"></ion-icon></button>
+        <button class="shutter-button round" @click="startScanning"><ion-icon :icon="documentAttachOutline"></ion-icon></button>
       </div>
       <div :class="'cropper fullscreen'+(mode!='cropping'?' hidden':'')" >
         <image-cropper :img="img" v-on:canceled="onCanceled" v-on:confirmed="onConfirmed"></image-cropper>
@@ -34,7 +34,7 @@
       <div class="scanner fullscreen" v-if="mode==='qr-scanning'">
         <StreamBarcodeReader @decode="onDecode"></StreamBarcodeReader> <!-- @loaded="onLoaded" -->
       </div>
-      <ion-loading :is-open="!initialized" message="Loading..." :backdropDismiss="true" :duration="3000" />
+      <ion-loading :is-open="!initialized" message="Laden..." :backdropDismiss="true" :duration="3000" />
     </ion-content>
   </ion-page>
 </template>
@@ -47,12 +47,14 @@ import { DetectedQuadResultItem, Quad } from 'image-cropper-component';
 import { onMounted, ref } from 'vue';
 import {
   trash,
-  save
+  save,
+  scanOutline,
+  documentAttachOutline,
+  personAddOutline,
+  send
 } from 'ionicons/icons';
 import { Capacitor } from '@capacitor/core';
 import jsPDF, { jsPDFOptions } from 'jspdf';
-import { Directory, Filesystem } from '@capacitor/filesystem';
-import { Share } from '@capacitor/share';
 import { StreamBarcodeReader } from "vue-barcode-reader";
 
 const initialized = ref<boolean>(false);
@@ -62,7 +64,7 @@ const viewer = ref<undefined|HTMLDivElement>();
 const mode = ref<"scanning"|"cropping"|"qr-scanning"|"normal">("normal");
 let ionBackground = "";
 let photoPath:string|undefined;
-let connectedPatient = ref<string|"">("No patient connected");
+let connectedPatient = ref<string|"">("Keine Patient");
 let statusMessage = ref<string|"">("");
 
 onMounted(async () => {
@@ -87,7 +89,7 @@ const clearImages = () => {
 
 const saveImages = async () => {
 
-  statusMessage.value = "Sending documents to patient: " + connectedPatient.value + "... Please wait";
+  statusMessage.value = "Speichert Dokumente über den Patienten: " + connectedPatient.value + "... Bitte warten";
 
   if (!viewer.value) {
     return;
@@ -254,14 +256,13 @@ const onScanned = (blob:Blob,path:string|undefined,results:DetectedQuadResultIte
 .shutter-button {
   background-color: black;
   border: none;
-  border-radius: 10%;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 5px;
-  width: 150px;
+  width: 50px;
   height: 50px;
   transform: translateY(-10px);
   cursor: pointer;
