@@ -5,6 +5,9 @@
         <ion-title><ion-icon :icon="scanOutline"></ion-icon></ion-title>
         <ion-buttons slot="primary">
           <p>{{connectedPatient.valueOf()}}</p>
+          <ion-button @click="toggleInstructions">
+            <ion-icon :icon="helpCircleOutline"></ion-icon>
+          </ion-button>
           <ion-button @click="clearImages">
             <ion-icon :icon="trash"></ion-icon>
           </ion-button>
@@ -15,12 +18,24 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
+      <div class="statusMessage"><p>{{statusMessage.valueOf()}}</p></div>
+      <div class="instructions" v-if="showInstructions">
+        <p>1. Scannen Sie den QR-Code für einen Patienten in WebCur
+          <ion-icon :icon="personAddOutline"></ion-icon>
+        </p>
+        <p>2. Datei mit den Schaltflächen unten erstellen
+          <ion-icon :icon="documentAttachOutline"></ion-icon>
+          <ion-icon :icon="micOutline"></ion-icon>
+        </p>
+        <p>3. Laden Sie die Dateien in WebCur hoch
+          <ion-icon :icon="cloudUploadOutline"></ion-icon>
+        </p>  
+      </div> 
       <div class="documentViewer" ref="viewer">
         <div class="image" v-for="(dataURL,index) in scannedImages" :key="index" >
           <img :src="dataURL" alt="scanned" />
         </div>
-        <div class="statusMessage"><p>{{statusMessage.valueOf()}}</p></div>
-      </div>
+      </div> 
       <div :class="'footer'+(mode!='normal'?' hidden':'')">
         <button class="shutter-button round" @click="qrReadPatient"><ion-icon :icon="personAddOutline"></ion-icon></button>
         <button class="shutter-button round" @click="startScanning"><ion-icon :icon="documentAttachOutline"></ion-icon></button>
@@ -51,7 +66,7 @@ import { DetectedQuadResultItem, Quad } from 'image-cropper-component';
 import { onMounted, ref } from 'vue';
 import {
   trash,
-  save,
+  helpCircleOutline,
   scanOutline,
   documentAttachOutline,
   micOutline,
@@ -72,6 +87,7 @@ let ionBackground = "";
 let photoPath:string|undefined;
 let connectedPatient = ref<string|"">("Kein Patient");
 let statusMessage = ref<string|"">("");
+let showInstructions = ref<boolean>(true);
 
 onMounted(async () => {
   console.log("mounted");
@@ -88,6 +104,9 @@ onMounted(async () => {
   ionBackground = document.documentElement.style.getPropertyValue('--ion-background-color');
 });
 
+const toggleInstructions = () => {
+  showInstructions.value = !showInstructions.value;
+}
 
 const clearImages = () => {
   scannedImages.value = [];
@@ -95,7 +114,7 @@ const clearImages = () => {
 
 const saveImages = async () => {
 
-  statusMessage.value = "Speichert Dokumente über den Patienten: " + connectedPatient.value + "... Bitte warten";
+  statusMessage.value = "Die Dateien wurden auf dem Patienten gespeichert: " + connectedPatient.value + "... Bitte warten";
 
   if (!viewer.value) {
     return;
@@ -278,8 +297,8 @@ ion-page {
   display: inline-block;
   font-size: 20px;
   margin: 5px;
-  width: 75px;
-  height: 75px;
+  width: 70px;
+  height: 70px;
   transform: translateY(-10px);
   cursor: pointer;
 }
@@ -336,5 +355,15 @@ ion-page {
 ion-header ion-icon {
   color: #156d6f;
   font-size: 25px;
+}
+
+.instructions {
+  align-items: center;
+  justify-content: left;
+  margin: 10px;
+  padding: 15px;
+  background-color: #156d6f;
+  color: white;
+  border-radius: 5px;
 }
 </style>
