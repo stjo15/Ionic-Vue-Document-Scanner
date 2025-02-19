@@ -24,6 +24,7 @@
       <div :class="'footer'+(mode!='normal'?' hidden':'')">
         <button class="shutter-button round" @click="qrReadPatient"><ion-icon :icon="personAddOutline"></ion-icon></button>
         <button class="shutter-button round" @click="startScanning"><ion-icon :icon="documentAttachOutline"></ion-icon></button>
+        <button class="shutter-button round" @click="startRecording"><ion-icon :icon="micOutline"></ion-icon></button>
       </div>
       <div :class="'cropper fullscreen'+(mode!='cropping'?' hidden':'')" >
         <image-cropper :img="img" v-on:canceled="onCanceled" v-on:confirmed="onConfirmed"></image-cropper>
@@ -33,6 +34,9 @@
       </div>
       <div class="scanner fullscreen" v-if="mode==='qr-scanning'">
         <StreamBarcodeReader @decode="onDecode"></StreamBarcodeReader> <!-- @loaded="onLoaded" -->
+      </div>
+      <div class="scanner fullscreen" v-if="mode==='recording'">
+        <VoiceRecorder @decode="onDecode"></VoiceRecorder>
       </div>
       <ion-loading :is-open="!initialized" message="Laden..." :backdropDismiss="true" :duration="3000" />
     </ion-content>
@@ -50,18 +54,20 @@ import {
   save,
   scanOutline,
   documentAttachOutline,
+  micOutline,
   personAddOutline,
   send
 } from 'ionicons/icons';
 import { Capacitor } from '@capacitor/core';
 import jsPDF, { jsPDFOptions } from 'jspdf';
 import { StreamBarcodeReader } from "vue-barcode-reader";
+import VoiceRecorder from '@/components/VoiceRecorder.vue';
 
 const initialized = ref<boolean>(false);
 const scannedImages = ref<string[]>([]);;
 const img = ref<undefined|HTMLImageElement>();
 const viewer = ref<undefined|HTMLDivElement>();
-const mode = ref<"scanning"|"cropping"|"qr-scanning"|"normal">("normal");
+const mode = ref<"scanning"|"cropping"|"qr-scanning"|"recording"|"normal">("normal");
 let ionBackground = "";
 let photoPath:string|undefined;
 let connectedPatient = ref<string|"">("Keine Patient");
@@ -166,6 +172,11 @@ const startScanning = () => {
 const qrReadPatient = () => {
   document.documentElement.style.setProperty('--ion-background-color', 'transparent');
   mode.value = "qr-scanning";
+}
+
+const startRecording = () => {
+  document.documentElement.style.setProperty('--ion-background-color', 'transparent');
+  mode.value = "recording";
 }
 
 const onDecode = (result:any) => {
