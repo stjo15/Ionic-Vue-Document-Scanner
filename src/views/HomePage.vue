@@ -18,6 +18,7 @@
       <div class="documentViewer" ref="viewer">
         <div class="image" v-for="(dataURL,index) in scannedImages" :key="index" >
           <img :src="dataURL" alt="scanned" />
+          <p>{{statusMessage.valueOf()}} </p>
         </div>
       </div>
       <div :class="'footer'+(mode!='normal'?' hidden':'')">
@@ -62,6 +63,7 @@ const mode = ref<"scanning"|"cropping"|"qr-scanning"|"normal">("normal");
 let ionBackground = "";
 let photoPath:string|undefined;
 let connectedPatient = ref<string|"">("No patient connected");
+let statusMessage = ref<string|"">("");
 
 onMounted(async () => {
   console.log("mounted");
@@ -128,7 +130,7 @@ const saveImages = async () => {
     const response = await fetch('https://www.postb.in/1739976675178-7884934670291', requestOptions);
     
     console.log(response);
-    alert(data);
+    statusMessage.value = "Documents saved to patient: " + connectedPatient.value;
     /* const writingResult = await Filesystem.writeFile({
       path: fileName,
       data: data,
