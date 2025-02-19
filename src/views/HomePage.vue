@@ -115,8 +115,6 @@ const saveImages = async () => {
     const data = doc.output("datauristring");    
     const fileName = "scanned.pdf";
 
-    console.log(data);
-
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -127,9 +125,10 @@ const saveImages = async () => {
       })
     };
 
-    const response = await fetch('https://carascanner.requestcatcher.com/test', requestOptions);
-    console.log(response.json());
-
+    const response = await fetch('https://www.postb.in/1739976675178-7884934670291', requestOptions);
+    
+    console.log(response);
+    alert(data);
     /* const writingResult = await Filesystem.writeFile({
       path: fileName,
       data: data,
