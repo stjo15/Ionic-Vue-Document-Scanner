@@ -19,7 +19,31 @@ export default defineConfig({
       }
     }),
     vueJsx(),
-    VitePWA({ registerType: 'autoUpdate' }),
+    VitePWA({ 
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      devOptions: {
+        enabled: true
+      },
+      manifest: {
+        name: 'Document Scanner',
+        short_name: 'DocumentScanner',
+        description: 'My Awesome App description',
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: 'favicon.png', // 'pwa-192x192.png',
+            sizes: '64x64',
+            type: 'image/png'
+          },
+          {
+            src: 'favicon.png', //'pwa-512x512.png',
+            sizes: '64x64',
+            type: 'image/png'
+          }
+        ]
+      }
+    }),
     legacy()
   ],
   resolve: {
