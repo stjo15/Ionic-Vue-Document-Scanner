@@ -29,10 +29,12 @@
     "ionicons": "^7.0.0",
     "jspdf": "^2.5.2",
     "vue": "^3.3.0",
+    "vue-barcode-reader": "^1.0.3",
     "vue-router": "^4.2.0"
   },
   "devDependencies": {
     "@capacitor/cli": "6.1.2",
+    "@types/vue-barcode-reader": "^0.0.3",
     "@vitejs/plugin-legacy": "^5.0.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^4.1.0",

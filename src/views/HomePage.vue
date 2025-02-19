@@ -17,16 +17,21 @@
       <div class="documentViewer" ref="viewer">
         <div class="image" v-for="(dataURL,index) in scannedImages" :key="index" >
           <img :src="dataURL" alt="scanned" />
+          <p></p>
         </div>
       </div>
       <div :class="'footer'+(mode!='normal'?' hidden':'')">
-        <button class="shutter-button round" @click="startScanning">Scan</button>
+        <button class="shutter-button" @click="qrReadPatient">Read Patient</button>
+        <button class="shutter-button" @click="startScanning">Scan Document</button>
       </div>
       <div :class="'cropper fullscreen'+(mode!='cropping'?' hidden':'')" >
         <image-cropper :img="img" v-on:canceled="onCanceled" v-on:confirmed="onConfirmed"></image-cropper>
       </div>
       <div class="scanner fullscreen" v-if="mode==='scanning'">
         <DocumentScanner @on-scanned="onScanned" @on-stopped="onStopped"></DocumentScanner>
+      </div>
+      <div class="scanner fullscreen" v-if="mode==='qr-scanning'">
+        <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
       </div>
       <ion-loading :is-open="!initialized" message="Loading..." :backdropDismiss="true" :duration="3000" />
     </ion-content>
@@ -47,12 +52,13 @@ import { Capacitor } from '@capacitor/core';
 import jsPDF, { jsPDFOptions } from 'jspdf';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
+import { StreamBarcodeReader } from "vue-barcode-reader";
 
 const initialized = ref<boolean>(false);
 const scannedImages = ref<string[]>([]);
 const img = ref<undefined|HTMLImageElement>();
 const viewer = ref<undefined|HTMLDivElement>();
-const mode = ref<"scanning"|"cropping"|"normal">("normal");
+const mode = ref<"scanning"|"cropping"|"qr-scanning"|"normal">("normal");
 let ionBackground = "";
 let photoPath:string|undefined;
 
@@ -125,6 +131,17 @@ const saveImages = async () => {
 const startScanning = () => {
   document.documentElement.style.setProperty('--ion-background-color', 'transparent');
   mode.value = "scanning";
+}
+
+const qrReadPatient = () => {
+  document.documentElement.style.setProperty('--ion-background-color', 'transparent');
+  mode.value = "qr-scanning";
+}
+
+const onDecode = (result:any) => {
+  console.log("Decoded QR code");
+  console.log(result);
+  mode.value = "normal";
 }
 
 const onCanceled = () => {
@@ -208,11 +225,13 @@ const onScanned = (blob:Blob,path:string|undefined,results:DetectedQuadResultIte
 .shutter-button {
   background-color: black;
   border: none;
+  border-radius: 10%;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  margin: 5px;
   width: 50px;
   height: 50px;
   transform: translateY(-10px);
