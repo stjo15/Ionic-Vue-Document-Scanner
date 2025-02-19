@@ -120,7 +120,7 @@ const saveImages = async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
         name: fileName,
-        data: data,
+        data: JSON.parse(data),
         patientUuid: connectedPatient.value
       })
     };
