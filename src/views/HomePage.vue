@@ -250,7 +250,7 @@ const onScanned = (blob:Blob,path:string|undefined,results:DetectedQuadResultIte
   display: inline-block;
   font-size: 16px;
   margin: 5px;
-  width: 50px;
+  width: 150px;
   height: 50px;
   transform: translateY(-10px);
   cursor: pointer;
