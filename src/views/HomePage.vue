@@ -254,7 +254,7 @@ const onScanned = (blob:Blob,path:string|undefined,results:DetectedQuadResultIte
 }
 
 .shutter-button {
-  background-color: black;
+  background-color: #156d6f;
   border: none;
   color: white;
   text-align: center;
@@ -315,5 +315,9 @@ const onScanned = (blob:Blob,path:string|undefined,results:DetectedQuadResultIte
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+ion-header ion-icon {
+  color: #156d6f;
 }
 </style>
