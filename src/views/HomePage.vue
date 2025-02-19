@@ -70,7 +70,7 @@ const viewer = ref<undefined|HTMLDivElement>();
 const mode = ref<"scanning"|"cropping"|"qr-scanning"|"recording"|"normal">("normal");
 let ionBackground = "";
 let photoPath:string|undefined;
-let connectedPatient = ref<string|"">("Keine Patient");
+let connectedPatient = ref<string|"">("Kein Patient");
 let statusMessage = ref<string|"">("");
 
 onMounted(async () => {
