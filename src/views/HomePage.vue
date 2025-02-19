@@ -18,8 +18,8 @@
       <div class="documentViewer" ref="viewer">
         <div class="image" v-for="(dataURL,index) in scannedImages" :key="index" >
           <img :src="dataURL" alt="scanned" />
-          <p>{{statusMessage.valueOf()}} </p>
         </div>
+        <div class="statusMessage"><p>{{statusMessage.valueOf()}}</p></div>
       </div>
       <div :class="'footer'+(mode!='normal'?' hidden':'')">
         <button class="shutter-button" @click="qrReadPatient">Read Patient</button>
