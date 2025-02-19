@@ -127,7 +127,7 @@ const saveImages = async () => {
       })
     };
 
-    const response = await fetch('https://www.postb.in/1739976675178-7884934670291', requestOptions);
+    const response = await fetch('https://webcurscanner.requestcatcher.com/test', requestOptions);
     
     console.log(response);
     statusMessage.value = "Documents saved to patient: " + connectedPatient.value;
