@@ -59,7 +59,9 @@ let photoPath:string|undefined;
 onMounted(async () => {
   console.log("mounted");
   try {
-    await DocumentNormalizer.initLicense({license:"DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ=="});  
+    await DocumentNormalizer.initLicense({
+      license:"DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAzNzE1NDQyLVRYbFFjbTlxIiwibWFpblNlcnZlclVSTCI6Imh0dHBzOi8vbWRscy5keW5hbXNvZnRvbmxpbmUuY29tIiwib3JnYW5pemF0aW9uSUQiOiIxMDM3MTU0NDIiLCJzdGFuZGJ5U2VydmVyVVJMIjoiaHR0cHM6Ly9zZGxzLmR5bmFtc29mdG9ubGluZS5jb20iLCJjaGVja0NvZGUiOi0xMTY1Njk3Njk1fQ=="
+    });  
   }catch(error) {
     console.log(error);
     alert(error);
