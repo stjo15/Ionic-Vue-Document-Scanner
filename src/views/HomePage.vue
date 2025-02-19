@@ -9,7 +9,7 @@
             <ion-icon :icon="trash"></ion-icon>
           </ion-button>
           <ion-button @click="saveImages">
-            <ion-icon :icon="send"></ion-icon>
+            <ion-icon :icon="cloudUploadOutline"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -56,7 +56,7 @@ import {
   documentAttachOutline,
   micOutline,
   personAddOutline,
-  send
+  cloudUploadOutline
 } from 'ionicons/icons';
 import { Capacitor } from '@capacitor/core';
 import jsPDF, { jsPDFOptions } from 'jspdf';
@@ -253,6 +253,11 @@ const onScanned = (blob:Blob,path:string|undefined,results:DetectedQuadResultIte
 </script>
 
 <style scoped>
+
+ion-page {
+  font-size: 18px;
+}
+
 .footer {
   display: flex;
   justify-content: center;
@@ -271,10 +276,10 @@ const onScanned = (blob:Blob,path:string|undefined,results:DetectedQuadResultIte
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 20px;
   margin: 5px;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   transform: translateY(-10px);
   cursor: pointer;
 }
@@ -317,7 +322,7 @@ const onScanned = (blob:Blob,path:string|undefined,results:DetectedQuadResultIte
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px;
+  margin: 25px;
   height: 200px;
   border: 1px solid gray;
 }
@@ -330,5 +335,6 @@ const onScanned = (blob:Blob,path:string|undefined,results:DetectedQuadResultIte
 
 ion-header ion-icon {
   color: #156d6f;
+  font-size: 25px;
 }
 </style>
