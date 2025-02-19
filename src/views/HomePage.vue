@@ -86,6 +86,9 @@ const clearImages = () => {
 }
 
 const saveImages = async () => {
+
+  statusMessage.value = "Sending documents to patient: " + connectedPatient.value + "... Please wait";
+
   if (!viewer.value) {
     return;
   }
