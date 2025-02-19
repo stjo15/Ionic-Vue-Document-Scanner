@@ -17,7 +17,7 @@
       <div class="documentViewer" ref="viewer">
         <div class="image" v-for="(dataURL,index) in scannedImages" :key="index" >
           <img :src="dataURL" alt="scanned" />
-          <p></p>
+          <p>{{connectedPatient.value}}</p>
         </div>
       </div>
       <div :class="'footer'+(mode!='normal'?' hidden':'')">
@@ -55,12 +55,13 @@ import { Share } from '@capacitor/share';
 import { StreamBarcodeReader } from "vue-barcode-reader";
 
 const initialized = ref<boolean>(false);
-const scannedImages = ref<string[]>([]);
+const scannedImages = ref<string[]>([]);;
 const img = ref<undefined|HTMLImageElement>();
 const viewer = ref<undefined|HTMLDivElement>();
 const mode = ref<"scanning"|"cropping"|"qr-scanning"|"normal">("normal");
 let ionBackground = "";
 let photoPath:string|undefined;
+let connectedPatient = ref<string|undefined>(undefined);
 
 onMounted(async () => {
   console.log("mounted");
@@ -141,6 +142,7 @@ const qrReadPatient = () => {
 const onDecode = (result:any) => {
   console.log("Decoded QR code");
   console.log(result);
+  connectedPatient.value = result;
   mode.value = "normal";
 }
 
