@@ -4,6 +4,7 @@
       <ion-toolbar>
         <ion-title>Docs Scan</ion-title>
         <ion-buttons slot="primary">
+          <p>Connected Patient: {{connectedPatient.valueOf()}}</p>
           <ion-button @click="clearImages">
             <ion-icon :icon="trash"></ion-icon>
           </ion-button>
@@ -17,7 +18,6 @@
       <div class="documentViewer" ref="viewer">
         <div class="image" v-for="(dataURL,index) in scannedImages" :key="index" >
           <img :src="dataURL" alt="scanned" />
-          <p>{{connectedPatient.value}}</p>
         </div>
       </div>
       <div :class="'footer'+(mode!='normal'?' hidden':'')">
@@ -61,7 +61,7 @@ const viewer = ref<undefined|HTMLDivElement>();
 const mode = ref<"scanning"|"cropping"|"qr-scanning"|"normal">("normal");
 let ionBackground = "";
 let photoPath:string|undefined;
-let connectedPatient = ref<string|undefined>(undefined);
+let connectedPatient = ref<string|"">("");
 
 onMounted(async () => {
   console.log("mounted");
