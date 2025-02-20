@@ -25,7 +25,8 @@ export default defineConfig({
       devOptions: {
         enabled: true
       },
-      manifest: {
+      manifest: false
+      /* manifest: {
         name: 'Document Scanner',
         short_name: 'DocumentScanner',
         description: 'My Awesome App description',
@@ -42,7 +43,7 @@ export default defineConfig({
             type: 'image/png'
           }
         ]
-      }
+      } */
     }),
     legacy()
   ],
