@@ -26,9 +26,9 @@ export default defineConfig({
         enabled: true
       },
       manifest: {
-        "name": "Document Scanner",
-        "short_name": "DocScanner",
-        "description": "An app to scan and manage documents.",
+        "name": "WebCur Patient Scanner",
+        "short_name": "WebCur Scanner",
+        "description": "An app to scan and manage documents and upload them to Webcur EHR",
         "start_url": "/",
         "display": "standalone",
         "background_color": "#ffffff",
