@@ -25,7 +25,35 @@ export default defineConfig({
       devOptions: {
         enabled: true
       },
-      manifest: false
+      manifest: {
+        "name": "Document Scanner",
+        "short_name": "DocScanner",
+        "description": "An app to scan and manage documents.",
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#ffffff",
+        "theme_color": "#156d6f",
+        "orientation": "portrait",
+        "icons": [
+          {
+            "src": "/icons/favicon.png",
+            "sizes": "64x64",
+            "type": "image/png"
+          },
+          {
+            "src": "/icons/webcur_logo.png",
+            "sizes": "280x272",
+            "type": "image/png"
+          }
+        ],
+        "screenshots": [
+          {
+            "src": "/screenshots/screenshot_home.png",
+            "sizes": "1080x2340",
+            "type": "image/png"
+          }
+        ]
+      }
       /* manifest: {
         name: 'Document Scanner',
         short_name: 'DocumentScanner',
