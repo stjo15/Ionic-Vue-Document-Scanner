@@ -87,7 +87,7 @@ let ionBackground = "";
 let photoPath:string|undefined;
 let connectedPatient = ref<string|"">("Kein Patient");
 let statusMessage = ref<string|"">("");
-let showInstructions = ref<boolean>(true);
+let showInstructions = ref<boolean>(false);
 
 onMounted(async () => {
   console.log("mounted");
@@ -359,6 +359,8 @@ ion-header ion-icon {
 
 .instructions {
   align-items: center;
+  position: absolute;
+  z-index: 1000;
   justify-content: left;
   margin: 10px;
   padding: 15px;
