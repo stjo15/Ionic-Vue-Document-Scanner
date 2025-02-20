@@ -51,7 +51,7 @@
         <StreamBarcodeReader @decode="onDecode"></StreamBarcodeReader> <!-- @loaded="onLoaded" -->
       </div>
       <div class="scanner fullscreen" v-if="mode==='recording'">
-        <VoiceRecorder @decode="onDecode"></VoiceRecorder>
+        <VoiceRecorder @decode="onDecode" @on-stopped="onStopped"></VoiceRecorder>
       </div>
       <ion-loading :is-open="!initialized" message="Laden..." :backdropDismiss="true" :duration="3000" />
     </ion-content>
