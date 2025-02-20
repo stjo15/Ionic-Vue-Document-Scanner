@@ -201,7 +201,7 @@ const startRecording = () => {
 const onDecode = (result:any) => {
   console.log("Decoded QR code");
   console.log(result);
-  connectedPatient.value = result;
+  connectedPatient.value = "Max Mustermann"; // Hardcoded for demo, should be set to result;
   mode.value = "normal";
 }
 
