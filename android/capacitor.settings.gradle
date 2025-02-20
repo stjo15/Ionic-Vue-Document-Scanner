@@ -25,3 +25,6 @@ project(':capacitor-plugin-camera').projectDir = new File('../node_modules/capac
 
 include ':capacitor-plugin-dynamsoft-document-normalizer'
 project(':capacitor-plugin-dynamsoft-document-normalizer').projectDir = new File('../node_modules/capacitor-plugin-dynamsoft-document-normalizer/android')
+
+include ':capacitor-voice-recorder'
+project(':capacitor-voice-recorder').projectDir = new File('../node_modules/capacitor-voice-recorder/android')

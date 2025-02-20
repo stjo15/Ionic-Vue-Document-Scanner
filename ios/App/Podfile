@@ -19,6 +19,7 @@ def capacitor_pods
   pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
   pod 'CapacitorPluginCamera', :path => '../../node_modules/capacitor-plugin-camera'
   pod 'CapacitorPluginDynamsoftDocumentNormalizer', :path => '../../node_modules/capacitor-plugin-dynamsoft-document-normalizer'
+  pod 'CapacitorVoiceRecorder', :path => '../../node_modules/capacitor-voice-recorder'
 end
 
 target 'App' do
